@@ -1,0 +1,195 @@
+﻿@model Cuponidad.Models.ProductViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    int LevelTwoClass = 0;
+}
+<div class="page-loader">
+    <div class="page-loader-inner">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content fixed-content">
+    <div class="container">
+        <div class="wrap-sect">
+            <div class="home-tpsection col-md-12">
+                <div class="row">
+                    <div class="hm-left h-xs h-tab">
+                        <div class="item-banner-gif-1">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-productID="1003" asp-route-familyID="1">
+                                <img src="~/images/home-32.gif" alt="Cuponidad">
+                            </a>
+                        </div>
+                        <div class="item-banner-gif-2">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-productID="1004" asp-route-familyID="2">
+                                <img src="~/images/home-bimbo.png" alt="Cuponidad">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hm-rightslider">
+                        <div id="demo" class="carousel slide home-carousal" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ul class="carousel-indicators">
+                                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                <li data-target="#demo" data-slide-to="1"></li>
+                            </ul>
+                            <!-- The slideshow -->
+                            <div class="carousel-inner">
+                                @foreach (var rightBanner in Model.RightBanners)
+                                {
+                                    <div class="carousel-item" id="slider_@rightBanner.RightBannerID">
+                                        <img src="~/@rightBanner.Product.ImagePath" alt="">
+                                        <div class="carousal-caption pro-content">
+                                            <div class="description">
+                                                <a asp-controller="Product" asp-action="Detail" asp-route-productID="@rightBanner.Product.ProductID" asp-route-familyID="@rightBanner.Product.Category.Family.FamilyID">
+                                                    <div class="description__text">
+                                                        <h2>@rightBanner.Product.Description</h2>
+                                                        <h4>@rightBanner.Product.Company.Direction</h4>
+                                                        <div class="description__info-prices">
+                                                            <div class="price-ofert">
+                                                                <strong>S/ @rightBanner.Product.DiscountAmount</strong>
+                                                            </div>
+                                                            <div class="separator-line"></div>
+                                                            <div class="old-price-ofert">
+                                                                <div class="price-tag">Precio</div>
+                                                                <div class="old-price">S/ @rightBanner.Product.Prize</div>
+                                                            </div>
+
+                                                            <div class="separator-line"></div>
+                                                            <div class="price-discount">
+                                                                <div class="discount">- @rightBanner.Product.Discount %</div>
+                                                                <div class="discount-tag">DSCTO</div>
+                                                            </div>
+                                                            <div class="description__button v-xs">
+                                                                <button class="btn-ofert">
+                                                                    VER +
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="description__button h-xs">
+                                                        <button class="btn-ofert">
+                                                            VER +
+                                                        </button>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hm-left v-xs">
+                        <div class="item-banner-gif-1">
+                            <a href="#">
+                                <img src="~/images/home-32.gif" alt="Cuponidad">
+                            </a>
+                        </div>
+                        <div class="item-banner-gif-2">
+                            <a href="#">
+                                <img src="~/images/home-bimbo.png" alt="Cuponidad">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="ofertas_relacionadas">
+                <div id="wrap-offer-list">
+                    <div class="tp-categorycell h-xs">
+                        <div class="col-12 p-0 fl-list">
+                            <ul class="swiper-wrapper2 list-inline">
+                                @foreach (var category in Model.Categories)
+                                {
+                                    if (category.CategoryLevelID == 3)
+                                    {
+                                        <li class="swiper-slide"><a asp-controller="Product" asp-action="index" asp-route-familyID="@category.FamilyID" asp-route-categoryID="@category.CategoryID" class="button@(LevelTwoClass++)"> @category.Name </a></li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    @foreach (var family in Model.Families)
+                    {
+                        <div id="cnt-offer-list" class="category">
+                            <div class="col-12 text-center category-hd p-0">
+                                <h4><a href="#">@family.Name</a></h4>
+                                <div class="col-12 p-0 h-xs h-tab">
+                                    <ul class="category-inlist row d-flex justify-content-center">
+                                        @foreach (var category in Model.Categories)
+                                        {
+
+                                            if (family.FamilyID == category.FamilyID)
+                                            {
+                                                <li><a asp-controller="Product" asp-action="index" asp-route-familyID="@family.FamilyID" asp-route-categoryID="@category.CategoryID">@category.Name</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            @foreach (var product in Model.Products)
+                            {
+                                @foreach (var category in Model.Categories)
+                                {
+                                    if (family.FamilyID == category.FamilyID && category.CategoryID == product.CategoryID)
+                                    {
+                                        <div class="card offer-unit">
+                                            <figure class="img-offer">
+                                                <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@family.FamilyID">
+                                                    <img src="~/@product.ImagePath" class="img-fluid" alt="">
+                                                </a>
+                                                <span class="offer"><img src="~/images/offer.png"></span>
+                                            </figure>
+                                            <div class="card-body desc-offer">
+                                                <div class="data-offer-allvalue">
+                                                    <div class="data-offer-linea1"><span class="listing-price-b">S/@product.DiscountAmount</span></div>
+                                                    @if (product.Discount > 0)
+                                                    {
+                                                        <div class="data-offer-linea2">
+                                                            <span class="before-price-b">
+                                                                <span class="before-price-etiqueta">Precio</span>
+                                                                <span class="before-price-precioreal">S/@product.Prize </span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="data-offer-linea3"><span class="dscto-b">-@product.Discount DSCTO</span></div>
+                                                    }
+                                                </div>
+                                                <h2 class="title-offer">
+                                                    <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@family.FamilyID">
+                                                        @product.Company.Direction:@product.Description
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-footer">
+                                                <span class="comerc"></span>
+                                                <div class="prices">
+                                                    <div class="prices-item2">@product.DropDownListBydays.Name</div>
+                                                    <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@family.FamilyID" class="btn btn-offer">Ver <strong>+</strong></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- PAGE-ENDS-HERE -->
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#slider_3").addClass('active')
+        })
+    </script>
+}

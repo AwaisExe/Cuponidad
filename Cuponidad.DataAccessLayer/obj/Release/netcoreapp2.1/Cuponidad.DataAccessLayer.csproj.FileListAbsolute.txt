@@ -1,0 +1,11 @@
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\bin\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.deps.json
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\bin\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.runtimeconfig.json
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\bin\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.runtimeconfig.dev.json
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\bin\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.dll
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\bin\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.pdb
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.csprojAssemblyReference.cache
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.csproj.CoreCompileInputs.cache
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.AssemblyInfoInputs.cache
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.AssemblyInfo.cs
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.dll
+E:\Work Space\FreelancingProject\Cupon\Cuponidad\Cuponidad.DataAccessLayer\obj\Release\netcoreapp2.1\Cuponidad.DataAccessLayer.pdb

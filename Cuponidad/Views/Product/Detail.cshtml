@@ -1,0 +1,177 @@
+﻿@model Cuponidad.Models.ProductDetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int LevelTwoClass = 0;
+}
+<div class="main-content fixed-content inner-page">
+    <div class="container">
+        <div class="col-md-12 p-0">
+            <div class="row">
+                <div class="col-sm-9 section-left">
+                    <div class="card left-card">
+                        <div class="card-body">
+                            <h1 class="title-det-offer"><strong>@Model.Product.Description</strong></h1>
+                            <div class="col-md-12 p-lr-5">
+                                <div class="row">
+                                    <div class="col-md-9 section-left">
+                                        <a href="#">
+                                            <img src="~/@Model.Product.ImagePath" alt="" class="img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 content-right p-lr-5">
+                                        <div class="card-body right-info text-center">
+                                            <p>Desde:</p>
+                                            <h3 class="det-price">S/ @Model.Product.DiscountAmount</h3>
+                                            <a asp-controller="Product" asp-action="AddToCart" asp-route-ProductID="@Model.Product.ProductID" class="btn-buy" onclick="">Añadir a la cesta</a>
+                                            <div class="col-12 p-0">
+                                                <ul class="list-inline infos-list">
+                                                    <li><i class="fa fa-tag"></i>  @Model.Product.Discount% de descuento. </li>
+                                                    <li><i class="fa fa-users"></i>  @Model.Product.QuantitySold Vendidos. </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-12 p-0">
+                                                <select id="example" disabled>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-lr-5 content-btm">
+                                <a href="#" class="ad-banner"><img src="~/images/desktopbimbo.gif" class="img-fluid" alt=""></a>
+                                <h4 class="submenu-detail"><a href="#id-dest" class="m-dest"><img src="~/images/icodestacados.png" alt=""> Condiciones</a></h4>
+                                <div>
+                                    @Html.Raw(Model.Product.Terms)
+                                </div>
+                                <div class="sml-list2">
+                                    <p class="notes">¡No te la pierdas!</p>
+                                    <h4 class="submenu-detail"><img src="~/images/icocondiciones.png" alt=""> Condiciones</h4>
+                                    @Html.Raw(Model.Product.Conditions)
+                                </div>
+                                <div class="sml-list2">
+                                    <h4 class="submenu-detail"><img src="~/images/icolaempresa.png" alt=""> La Empresa</h4>
+                                </div>
+                                <div class="ubicacion">
+                                    <div class="ubi-left">
+                                        <h4></h4>
+                                        <p><strong>Phone: </strong> @Model.Product.Company.Phone</p>
+                                        <p><strong>Name: </strong> @Model.Product.Company.Direction</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 dbl-bannerbox">
+                                    <ul class="list-inline db-banner">
+                                        <li><a href="#"><img src="~/images/ofertadetalle-DESDE-b.gif" alt="" class="img-fluid"></a></li>
+                                        <li><a href="#"><img src="~/images/cuponidad-cupon-sin-reserva-2.gif" alt="" class="img-fluid"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-12 p-0 fl-list">
+                                    <ul class="swiper-wrapper2 list-inline">
+                                        @foreach (var category in Model.Categories)
+                                        {
+                                            if (category.CategoryLevelID == 3)
+                                            {
+                                                <li class="swiper-slide"><a asp-controller="Product" asp-action="index" asp-route-familyID="@category.FamilyID" asp-route-categoryID="@category.CategoryID" class="button@(LevelTwoClass++)"> @category.Name </a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 content-right">
+                    <!-- <div class="co-12 p-0 banner-tp">
+                        <a href="#">
+                            <img src="~/images/home-sin-reserva-4.gif" alt="" class="img-fluid">
+                        </a>
+                    </div> -->
+                    <div class="title-section title-section2">
+                        <h3>@Model.Family.Name</h3>
+                    </div>
+                    <div class="cnt-filter d-flex">
+                        <span>Ordenar por: </span>
+                        <form method="post">
+                            <select asp-for="DropDownID" asp-items="Html.GetEnumSelectList<Cuponidad.DataAccessLayer.Model.SortingEnum>()">
+                                <option value=" ">Seleccionar</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="col-12 p-0 btm-boxes">
+                        @foreach (var product in Model.Products)
+                        {
+                            @foreach (var category in Model.Categories)
+                            {
+                                if (Model.Family.FamilyID == category.FamilyID && category.CategoryID == product.CategoryID)
+                                {
+                                    <div class="card offer-unit">
+                                        <figure class="img-offer">
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@Model.Family.FamilyID">
+                                                <img src="~/@product.ImagePath" class="img-fluid" alt="">
+                                            </a>
+                                            <span class="offer"><img src="~/images/offer.png"></span>
+                                        </figure>
+                                        <div class="card-body desc-offer">
+                                            <div class="data-offer-allvalue">
+                                                <div class="data-offer-linea1"><span class="listing-price-b">S/ @product.DiscountAmount</span></div>
+                                                @if (product.Discount > 0)
+                                                {
+                                                    <div class="data-offer-linea2">
+                                                        <span class="before-price-b">
+                                                            <span class="before-price-etiqueta">Precio</span>
+                                                            <span class="before-price-precioreal"> S/ @product.Prize </span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="data-offer-linea3"><span class="dscto-b">-@product.Discount% DSCTO</span></div>
+                                                }
+                                            </div>
+                                            <h2 class="title-offer">
+                                                <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@Model.Family.FamilyID">
+                                                    @product.Company.Direction : @product.Description
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-footer">
+                                            <span class="comerc"></span>
+                                            <div class="prices">
+                                                <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
+                                                <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@Model.Family.FamilyID" class="btn btn-offer">Ver <strong>+</strong></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+
+                        <div class="card box-more text-center">
+                            <div class="title-more">Publica tu Negocio</div>
+                            <div class="desc-more">
+                                <p>Consigue que tu negocio sea conocido por miles de usuarios. </p>
+                                <p>Horario: 9:30 AM a 5:30 PM <br> LLÁMANOS: (01) 711 6023</p>
+                                <a href="" class="link-soporte">soporte@cuponidad.pe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#example').barrating({
+                theme: 'fontawesome-stars'
+            });
+            $('#DropDownID').on('change', function () {
+                $('form').submit();
+            });
+        });
+    </script>
+}

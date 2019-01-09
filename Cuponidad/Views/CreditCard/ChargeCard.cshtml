@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewData["Title"] = "ChargeCard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content fixed-content inner-page">
+    <div class="container">
+        <div class="col-md-12 p-0">
+            <div class="box_proceso_compra card box_top">
+                <div class="box_validar_codigo">
+                    <div class="box_vc_texto">¿tienes algún código de descuento?</div>
+                    <div class="box_vc_campo">
+                        <input name="ctl00$ContentPlaceHolder1$txtCodigoDescuento" type="text" maxlength="20" id="ctl00_ContentPlaceHolder1_txtCodigoDescuento" tabindex="500">
+                    </div>
+                    <div class="box_vc_boton">
+                        <input type="submit" name="ctl00$ContentPlaceHolder1$btnValidar" value="Validar" id="ctl00_ContentPlaceHolder1_btnValidar" class="boton">
+                    </div>
+                    <div class="box_vc_valor">
+                        <span id="ctl00_ContentPlaceHolder1_lblValorCodigo"></span>
+                    </div>
+                    <div class="box_vc_etiqueta">
+                        <span id="ctl00_ContentPlaceHolder1_lblEtiquetaCodigo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card box_proceso_compra">
+            <div class="row m-0 bx_tpp">
+                <form class="form-horizontal">
+                    <div class="box_mediospago_lista col-md-9">
+                        <div class="box_mediospago_lista_titulo">
+                            LISTA DE MEDIOS DE PAGO : seleccione un medio de pago y luego clic en boton "Pagar"
+                        </div>
+                       
+                    </div>
+                    <div class="box_mediospago_bloquepago col-md-3">
+                        <div class="box_mediospagob_titulo">
+                            Total a Pagar
+                        </div>
+                        <div class="box_mediospagob_valor">
+                            <span id="ctl00_ContentPlaceHolder1_lblTotalAPagar">S/ 71.90</span>
+                        </div>
+                        <div class="box_mediospagob_valor_antes">
+                            <span id="ctl00_ContentPlaceHolder1_lblTotalAPagarAntes"></span>
+                        </div>
+                        <div class="box_mediospagob_comprar" id="box_mediospagob_comprar">
+                            <input  type="submit" name="ctl00$ContentPlaceHolder1$btnPagar" value="Pagar" class="boton botonProcesarPrevious">
+                            <input type="submit" name="ctl00$ContentPlaceHolder1$btnPagarProcesar" value="Pagar Procesar" id="ctl00_ContentPlaceHolder1_btnPagarProcesar" class="boton" style="display:none;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- TOP-PAYMENTS-SECTION-ENDS -->
+
+        <div class="col-12 p-0 compra_botmm">
+            <div class="box_proceso_compra">
+                <div class="box_detalle_cab">
+                    <div class="bdc_texto_carrito"> Detalle de tu Compra </div>
+                </div>
+                <!-- LIST-STARTS-HERE -->
+                <div class="box_detalle_oferta">
+                    <div class="bd_imagen_oferta">
+                        <img src="https://compras.cuponidad.pe/images/Deals/350x210/oferta-cineplanet-32 (1).jpg" alt="Sedes Provincias: 2 entradas generales 2D + combo.">
+                    </div>
+                    <div class="bd_texto_oferta">
+                        <div class="bdto_comercio">Cineplanet</div>
+                        <div class="bdto_opcion">Sedes Provincias: 2 entradas generales 2D + combo.</div>
+                    </div>
+                    <div class="box_detalle_pie">
+                        <div class="boxdp_precio">
+                            <div class="boxdpp_texto"> p. unitario</div>
+                            <div class="boxdpp_valor"> S/ <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl0_ctl00_lblListingPrice">32.90</span></div>
+                        </div>
+                        <div class="boxdp_cantidad">
+                            <div class="boxdpc_texto"> cantidad</div>
+                            <div class="boxdpc_select">
+                                <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl0_ctl00_lblQuantity">1</span>
+                            </div>
+                        </div>
+                        <div class="boxdp_precio">
+                            <div class="boxdpp_texto"> subtotal</div>
+                            <div class="boxdpp_valor"> S/ <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl0_ctl00_lblListingPriceTotal">32.90</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_detalle_oferta">
+                    <div class="bd_imagen_oferta">
+                        <img src="https://compras.cuponidad.pe/images/Deals/350x210/arriieerroooeell.jpg" alt="Válido de Lun a Dom: 1 Entrada de niño + 1 Entrada de adulto + 2 Canastitas + 2 Alimentos para mamíferos  + Paseo en carreta jalada con burro.">
+                    </div>
+                    <div class="bd_texto_oferta">
+                        <div class="bdto_comercio">El Arriero Granja Interactiva</div>
+                        <div class="bdto_opcion">Válido de Lun a Dom: 1 Entrada de niño + 1 Entrada de adulto + 2 Canastitas + 2 Alimentos para mamíferos  + Paseo en carreta jalada con burro.</div>
+                    </div>
+                    <div class="box_detalle_pie">
+                        <div class="boxdp_precio">
+                            <div class="boxdpp_texto"> p. unitario</div>
+                            <div class="boxdpp_valor"> S/ <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl1_ctl00_lblListingPrice">39.00</span></div>
+                        </div>
+                        <div class="boxdp_cantidad">
+                            <div class="boxdpc_texto"> cantidad</div>
+                            <div class="boxdpc_select">
+                                <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl1_ctl00_lblQuantity">1</span>
+                            </div>
+                        </div>
+                        <div class="boxdp_precio">
+                            <div class="boxdpp_texto"> subtotal</div>
+                            <div class="boxdpp_valor"> S/ <span id="ctl00_ContentPlaceHolder1_lvLista_ctrl1_ctl00_lblListingPriceTotal">39.00</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_total_oferta">
+                    <div class="box_total_oferta_valor_total"> S/ <span id="ctl00_ContentPlaceHolder1_lblTotal">71.90</span> </div>
+                    <div class="box_total_oferta_texto"> Total </div>
+                </div>
+                <div class="box_detalle_cab">
+                    <div class="box_procesar_pasos">
+                        <div class="box_vc_boton">
+                            <input type="submit" name="ctl00$ContentPlaceHolder1$btnEditarCarrito" value="Editar Carrito" id="ctl00_ContentPlaceHolder1_btnEditarCarrito" class="boton">
+                            <input type="submit" name="ctl00$ContentPlaceHolder1$btnValidarMP" value="" id="ctl00_ContentPlaceHolder1_btnValidarMP" style="display:none!important;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- BOTTOM-LIST-ENDS -->
+    </div>
+</div><!-- PAGE-ENDS-HERE -->
+
+

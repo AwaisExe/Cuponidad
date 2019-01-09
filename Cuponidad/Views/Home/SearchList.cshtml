@@ -1,0 +1,56 @@
+﻿@model List<Cuponidad.DataAccessLayer.Model.Product>
+@{
+    ViewData["Title"] = "SearchList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content fixed-content">
+    <div class="container">
+        <div class="wrap-sect">
+            <div id="ofertas_relacionadas">
+                <div id="wrap-offer-list">
+                    <div id="cnt-offer-list">
+                        @foreach (var product in Model)
+                        {
+                            <div class="card offer-unit">
+                                <figure class="img-offer">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID">
+                                        <img src="~/@product.ImagePath" class="img-fluid" alt="">
+                                    </a>
+                                    <span class="offer"><img src="~/images/offer.png"></span>
+                                </figure>
+                                <div class="card-body desc-offer">
+                                    <div class="data-offer-allvalue">
+                                        <div class="data-offer-linea1"><span class="listing-price-b">S/@product.DiscountAmount</span></div>
+                                        @if (product.Discount > 0)
+                                        {
+                                            <div class="data-offer-linea2">
+                                                <span class="before-price-b">
+                                                    <span class="before-price-etiqueta">Precio</span>
+                                                    <span class="before-price-precioreal">S/@product.Prize </span>
+                                                </span>
+                                            </div>
+                                            <div class="data-offer-linea3"><span class="dscto-b">-@product.Discount DSCTO</span></div>
+                                        }
+                                    </div>
+                                    <h2 class="title-offer">
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID">
+                                            @product.Company.Direction:@product.Description
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="comerc"></span>
+                                    <div class="prices">
+                                        <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID" class="btn btn-offer">Ver <strong>+</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- PAGE-ENDS-HERE -->

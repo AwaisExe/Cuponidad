@@ -1,0 +1,120 @@
+﻿@model Cuponidad.Models.AddProductViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="container">
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            Error: @ViewData["ErrorMessage"]
+        </div>
+    }
+    @if (ViewData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            Success: @ViewData["SuccessMessage"]
+        </div>
+    }
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="Image" required>
+            <div class="form-group">
+                <label>Product Name</label>
+                <input asp-for="Product.Name" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea asp-for="Product.Description" type="text" class="form-control"> </textarea>
+            </div>
+            <div class="form-group">
+                <label>Prize</label>
+                <input asp-for="Product.Prize" type="text" pattern="^[1-9]\d*(\.\d+)?$" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Discount</label>
+                <input asp-for="Product.Discount" type="number" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Terms</label>
+                <textarea asp-for="Product.Terms" type="text" class="area"> </textarea>
+            </div>
+            <div class="form-group">
+                <label>Conditions</label>
+                <textarea asp-for="Product.Conditions" type="text" class="area"> </textarea>
+            </div>
+            <div class="form-group">
+                <label>Days Use</label>
+                <select asp-for="Product.DaysOpenID" asp-items="@(new SelectList(Model.DropDownListBydays ,"DaysOpenID","Name"))" required>
+                    <option class="form-control">Select Days</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Company</label>
+                <select asp-for="Product.CompanyID" asp-items="@(new SelectList(Model.Companies ,"CompanyID","Direction"))" required>
+                    <option class="form-control">Select Company</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select asp-for="Product.DepartmentID" asp-items="@(new SelectList(Model.Departments ,"DepartmentID","Name"))" required>
+                    <option class="form-control">Select Department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Family</label>
+                <select asp-for="FamilyID" asp-items="@(new SelectList(Model.Families, "FamilyID","Name"))" required>
+                    <option class="form-control">Select Family</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select asp-for="Product.CategoryID" asp-items="@(new SelectList(Model.Categories, "CategoryID","Name"))" required>
+                    <option value="value" class="form-control">Select Category</option>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-primary" />
+        </form>
+</body>
+</html>
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="~/js/site.js"></script>    
+<script src="~/js/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        selector: '.area',
+        plugins: false,
+        themes: 'modern',
+        languages: 'en',
+    });
+
+    $('#FamilyID').on('change', function () {
+        var data = {
+            FamilyID: $("#FamilyID").val()
+        };
+        var vUrl = "/Cupnoid/Admin/CategoryList";
+        AjaxGet(vUrl, data, LoadCategories, null, false)
+    });
+
+    function LoadCategories(data) {
+        $("#Product_CategoryID").html('');
+        if (data == '') {
+            $("#Product_CategoryID").append(`<option value="" class="form-control">Select Category</option>`);
+        }
+        else {
+            var htmltemplate;
+            jQuery.each(data, function (a, obj) {
+                $("#Product_CategoryID").append(`<option value=` + obj.categoryID + ` class="form-control">` + obj.name + `</option>`);
+            });
+        }
+    }
+</script>

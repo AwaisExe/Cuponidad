@@ -1,0 +1,266 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Cuponidad.DataAccessLayer.Model;
+@using Cuponidad.DataAccessLayer.Repository;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ISession oISession = HttpContextAccessor.HttpContext.Session;
+    bool IsLogin = false;
+    string UserName = "";
+    int TotalCart = 0;
+    List<Family> families = new List<Family>();
+    List<Department> departments = new List<Department>();
+    families = FamilyRepository.List();
+    departments = DropDownListRepository.DepartmenList();
+}
+
+@if (CuponSession.IsUserLogin(oISession))
+{
+    IsLogin = true;
+    UserName = CuponSession.GetUser(oISession).FullName;
+    TotalCart = CartRepository.ListByUser(CuponSession.GetUser(oISession).UserID).Count;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cuponidad</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
+    <link href="~/css/masterstyle.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-stars.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    @*<environment include="Development">
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- Header-->
+        <header class="header header-white navbar-fixed-top">
+            <div style="background-color:aqua">
+                <form id="departmentForm" method="post" asp-action="SearchList" asp-controller="Home">
+                    <select style="margin-left:140px" id="DepartmentID" name="DepartmentID" asp-items="@(new SelectList(departments ,"DepartmentID","Name"))" required>
+                        <option class="form-control">Select Department</option>
+                    </select>
+                </form>
+            </div>
+            <div class="container">
+                <!-- Brand-->
+                <div class="navbar-headers">
+                    <button id="tog-btn" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-base" aria-controls="#navbar-base" aria-expanded="false" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <a id="lnkCarritoTop" class="modal-link v-xs" href="#" data-toggle="modal" data-target="#LoginModal">
+                        <table><tbody><tr><td><img src="~/images/carritodecompras.png" valign="middle" alt="Carrito de Compra" title="Carrito Compra"> </td><td><span id="iCant">0</span></td></tr></tbody></table>
+                    </a>
+                    <h1><a class="inner-brand" asp-controller="Home" asp-action="index"><img src="~/images/logo.png" alt="brand-name"><span>Una marca del <strong> Grupo La República</strong></span></a></h1>
+                    <div class="box-buscador">
+                        <div class="form-buscador">
+
+                            <form method="post" asp-controller="Home" asp-action="SearchList">
+                                <input type="text" name="SearchText" placeholder="¿Qué estás buscando?" class="frm-buscar ui-autocomplete-input" id="search_box" required>
+                                <button type="submit" class="btn-buscar"> <img src="~/images/lupa_buscador.png" alt="search" /></button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="menu-section">
+                        <div id="navbar-base" class="collapse navbar-collapse">
+                            <ul class="list-inline menu-top">
+                                <li class="h-xs">
+                                    <a id="lnkCarritoTop" class="modal-link" asp-controller="Product" asp-action="Cart">
+                                        <table><tbody><tr><td><img src="~/images/carritodecompras.png" valign="middle" alt="Carrito de Compra" title="Carrito Compra"> </td><td><span id="iCant">@TotalCart</span></td></tr></tbody></table>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span id="iCreditos" class="credits">0</span>
+                                        <img src="~/images/moneda.png" valign="middle" alt="Mis Creditos" title="Mis Creditos">
+                                        <span>Mis Créditos</span>
+                                    </a>
+                                </li>
+                                @if (!IsLogin)
+                                {
+                                    <li>
+                                        <a asp-controller="Account" asp-action="register">
+                                            <img src="~/images/registrarme.png" valign="middle" alt="Registrarse" title="Registrarse">
+                                            <span>Registrar</span>
+                                        </a>
+                                    </li>
+                                }
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#LoginModal">
+                                        <img src="~/images/miscupones.png" valign="middle" alt="Mis Cupones" title="Mis Cupones">
+                                        <span>Mis Cupones</span>
+                                    </a>
+                                </li>
+                                @if (IsLogin)
+                                {
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Logout">
+                                            <img src="~/images/entrar.png" valign="middle" alt="Entrar" title="Entrar">
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-controller="Account" asp-action="register">
+                                            <img src="~/images/entrar.png" valign="middle" alt="Entrar" title="Entrar">
+                                            <span>Entrar</span>
+                                        </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation-->
+            </div>
+            <section id="product-slider" class="pslider-section">
+                <div class="container wrapper-1150">
+                    <ul class="bxslider">
+                        @foreach (var family in families)
+                        {
+                            <li>
+                                <div class="box">
+                                    <a asp-controller="Product" asp-action="index" asp-route-familyID="@family.FamilyID">
+                                        <div class="styles__frontFlip--Mp9Fa">
+                                            <img src="~/@family.ImagePath" alt="">
+                                        </div>
+                                        <div class="slider-categorias__title">
+                                            <h3>
+                                                @family.Name
+                                            </h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+        </header>
+        <!-- Header end-->
+
+        <partial name="_CookieConsentPartial" />
+        @RenderBody()
+    </div>
+    <footer class="footer collapse">
+
+        <div class="nav-foot">
+            <div class="container">
+                <ul class="nav-foot">
+                    <li><strong>Contáctanos </strong><span class="fa fa-phone"></span>711 6023</li>
+                    <li><strong>Whatsapp </strong><span class="fa fa-whatsapp"></span>997 580 793</li>
+                    <li><span class="fa fa-colock-0"></span>L-V: 9:30AM a 5:30PM y S: 9:30AM a 1:00PM </li>
+                    <li><span class="fa fa-envelope"></span>soporte@cuponidad.pe</li>
+                    <li><span class="fa fa-home"></span>Jr. Camana 320 - Cercado de Lima</li>
+                </ul>
+            </div>
+        </div>
+        <div class="menufoot">
+            <div class="container">
+                <ul class="menu-footer">
+                    <li><a href="#">Quiénes Somos</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#">¿Cómo Funciona?</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Promociona tu Negocio</a></li>
+                    <li>
+                        <a href="#">
+                            <img src="~/images/LibroReclamos.png" valign="middle" alt="Libro de Reclamaciones" title="Libro de Reclamaciones" width="100">Libro de Reclamaciones
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="logofoot">
+            <div class="container">
+                <ul class="list-inline f-list">
+                    <li><img src="~/images/ico_grupo_republica.png" alt="Grupo La República"></li>
+                    <li><a href="#" target="_blank"><img src="~/images/LogoLaRep.png" alt="La República" width="250"></a></li>
+                    <li><a href="#" target="_blank"><img src="~/images/img/LogoLib.png" alt="Libero" width="250"></a></li>
+                    <li><a href="#" target="_blank"><img src="~/images/LogoPop.png" alt="El Popular" width="250"></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/js/Facebook.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery.bxslider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="~/js/plugins.min.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script src="~/js/stepform.js"></script>
+    <script src="~/js/jquery.barrating.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                mode: 'horizontal',
+                auto: true,
+                moveSlides: 1,
+                slideMargin: 40,
+                infiniteLoop: true,
+                slideWidth: 660,
+                minSlides: 8,
+                maxSlides: 8,
+                speed: 800,
+            });
+
+            $('#DepartmentID').on('change', function () {
+                $('#departmentForm').submit();
+            });
+        })
+    </script>
+
+
+    @*<environment include="Development">
+                @*<script src="~/lib/jquery/dist/jquery.js"></script>
+                    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment exclude="Development">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery"
+                        crossorigin="anonymous"
+                        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+                </script>
+                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                        crossorigin="anonymous"
+                        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>*@
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

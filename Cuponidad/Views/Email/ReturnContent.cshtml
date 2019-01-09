@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Ubuntu;
+        }
+    </style>
+</head>
+<body style="background:#ededef;">
+    <table style="text-align:center;margin:0 auto; width:100%;max-width:600px;">
+        <tr>
+            <td style="background:#fff;border-radius:10px;overflow:hidden; box-shadow:0 0 8px rgba(114, 117, 129, 0.26);">
+                <div style="background:url(../email-template/main-img.jpg);background-size:cover;background-position:center top; width:100%; margin:0;height:210px;"></div>
+                <div style="padding:30px;">
+                    <b style="margin:20px 0; color:#727581">your Payment has been charged Successfully !</b>
+                    <p style="margin:20px 0; color:#727581;line-height:28px;">You are charged <strong> @ViewData["Amount"] </strong> Amount</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:20px;">
+                <p style="margin:10px 0; color:#727581;line-height:28px;">© 2018 <a href="#" target="_blank" style="color:#5fa40c;text-decoration:none;"><b>Cuponidad</b></a> all Rights Reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

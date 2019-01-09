@@ -1,0 +1,149 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ISession oISession = HttpContextAccessor.HttpContext.Session;
+}
+@model Cuponidad.DataAccessLayer.Model.User
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main-content fixed-content">
+    <div class="container">
+        <div class="card user-card">
+            <div class="card-body outer-box">
+                <div class="col-md-12 p-0">
+                    <div class="row">
+                        <div class="col-md-6 yatengo_cuenta">
+                            <div class="card-body inner-box">
+                                <div class="FBconnect_compra text-center">
+                                    <a class="btn btn-block btn-social btn-facebook" id="FacebookLogin" data-ServerBaseUrl="/Account/" data-RedirectUrl="/home/index" onclick="">
+                                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                                    </a>
+                                </div>
+                                <div class="bottom-log">
+                                    @if (ViewData["ErrorMessageLogin"] != null)
+                                    {
+                                        <div class="alert alert-danger">
+                                            Error: @ViewData["ErrorMessageLogin"]
+                                        </div>
+                                    }
+                                    <form method="post" asp-action="Login" id="login-form" class="form-horizontal">
+                                        <legend> Ingresa <span class="aside small">si ya tienes una cuenta</span></legend>
+                                        <div class="form-group">
+                                            <label class="control-label">Email<sup>*</sup></label>
+                                            <input class="form-control" name="Email" type="email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Contraseña<sup>*</sup></label>
+                                            <input class="form-control" name="Password" type="password" required>
+                                        </div>
+                                        <div class="form-group log-req">
+                                            <a href="#" class="pass-link text-center">- Olvidaste tu clave? -</a>
+                                            <input type="submit" class="btn log-btn" value="Entrar" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-xs-0">
+                            <div class="userInputForm-2">
+                                @if (ViewData["ErrorMessageRegister"] != null)
+                                {
+                                    <div class="alert alert-danger">
+                                        Error: @ViewData["ErrorMessageRegister"]
+                                    </div>
+                                }
+                                else if (ViewData["SuccessMessageRegister"] != null)
+                                {
+                                    <div class="alert alert-success">
+                                        Success: @ViewData["SuccessMessageRegister"]
+                                    </div>
+                                }
+                                <h3>
+                                    Registrarme
+                                </h3>
+                                <form method="post" asp-action="Register" id="RegistrationForm" class="form-horizontal form-right">
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label for="FnameTXT" class="col-md-4 control-label">Nombre Completo</label>
+                                            <div class="col-sm-8">
+                                                <input asp-for="FullName" type="text" class="form-control " placeholder="Ej: Jose Gonzales" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label for="NewEmailTXT" class="col-md-4 control-label">Email</label>
+                                            <div class="col-sm-8">
+                                                <input asp-for="Email" type="text" class="form-control" placeholder="Ej: nombre123@hotmail.com" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label for="NewPasswordTXT" class="col-sm-4 control-label">Contraseña</label>
+                                            <div class="col-sm-8">
+                                                <input asp-for="Password" type="password" maxlength="15" class="form-control " placeholder="Contraseña" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label for="ConfirmNewPasswordTXT" class="col-sm-4 control-label">Repite Contraseña</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" name="repeatPassword" maxlength="15" class="form-control" placeholder="Confirmación" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label for="NewEmailTXT" class="col-sm-4 control-label">Teléfono Celular </label>
+                                            <div class="col-sm-8">
+                                                <input asp-for="CellPhone" type="text" id="" tabindex="35" class="form-control" placeholder="Ej: 987654321" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="text-align:center;">
+                                        <div class="row">
+                                            <label for="NewCityLST" class="col-sm-4 control-label">Sexo:</label>
+                                            <div class="col-sm-8">
+                                                <div class="cssSexoDatos">
+                                                    <div class="label-inline cst-label">
+                                                        <input asp-for="Gender" type="radio" value="1" required> <label>Hombre:</label>
+                                                    </div>
+                                                    <div class="label-inline cst-label">
+                                                        <input asp-for="Gender" type="radio" value="2" required>  <label>Mujer:</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-1 checkbox">
+                                            <div class="label-inline cst-label cst-label2">
+                                                <input id="" type="checkbox" name="accept-terms" tabindex="50" required>
+                                                <span>He leído y acepto los <a href="#" target="_blank">Términos y Condiciones.</a></span>
+                                            </div>
+                                            <div class="label-inline cst-label cst-label2">
+                                                <input id="" type="checkbox" name="Políticas" tabindex="50" required>
+                                                <span>He leído y acepto las <a href="#" target="_blank">Políticas de Privacidad.</a></span>
+                                            </div>
+                                            <span>Al registrarte, recibiras notificaciones por correo electrónico de Cuponidad sobre ofertas, promociones y/o sorteos.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-1 regitro-sect">
+                                            <input class="btn submit-btn" type="submit" value="Registrarme" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
