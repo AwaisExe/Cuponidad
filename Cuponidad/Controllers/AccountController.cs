@@ -6,12 +6,18 @@ using Cuponidad.DataAccessLayer.Model;
 using Cuponidad.DataAccessLayer.Repository;
 using Cuponidad.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace Cuponidad.Controllers
 {
     public class AccountController : Controller
     {
+        IConfiguration oIconfig;
+        public AccountController(IConfiguration configration)
+        {
+            oIconfig = configration;
+        }
         public IActionResult Index()
         {
             return View();
@@ -59,7 +65,6 @@ namespace Cuponidad.Controllers
             CuponSession.Stop(HttpContext.Session);
             return RedirectToAction("Register");
         }
-
         public async Task<IActionResult> FacebookLogin(string pFBID, string pAccessToken)
         {
             try
@@ -91,6 +96,21 @@ namespace Cuponidad.Controllers
             {
                 return StatusCode(403, ex.Message);
             }
+        }
+        [HttpPost]
+        public IActionResult Change(string ChangeEmail)
+        {
+            //SendEmail(ChangeEmail);
+            return RedirectToAction("Register");
+        }
+        public void SendEmail(string Email)
+        {
+            var vContent = EmailController.ReturnHtmlContent(HttpContext, "/Email/ReturnContent?amount=" + 110);
+            //var vContent = "Your Order is successful and you paid Amount:" + amount;
+            var vFrom = "Cupnidad@cup.com";
+            var vTo = Email;
+            var vSubject = "Email from The Cuponidad";
+            var response = Send.SendEmail(oIconfig, vFrom, vTo, vSubject, "", vContent);
         }
     }
 }

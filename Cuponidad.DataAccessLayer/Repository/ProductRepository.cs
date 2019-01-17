@@ -59,6 +59,7 @@ namespace Cuponidad.DataAccessLayer.Repository
                          .Include(a => a.Company)
                          .Include(a => a.Category)
                          .Include(a => a.Category.Family)
+                         .Include(a => a.DropDownListBydays)
                          .Where(a => a.DepartmentID == departmentID)
                          .ToList();
             return products;

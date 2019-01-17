@@ -23,7 +23,7 @@
                                         <div class="card-body right-info text-center">
                                             <p>Desde:</p>
                                             <h3 class="det-price">S/ @Model.Product.DiscountAmount</h3>
-                                            <a asp-controller="Product" asp-action="AddToCart" asp-route-ProductID="@Model.Product.ProductID" class="btn-buy" onclick="">Añadir a la cesta</a>
+                                            <a asp-controller="Product" asp-action="AddToCart" asp-route-ProductID="@Model.Product.ProductID" asp-route-FamilyID="@Model.Product.Category.FamilyID" class="btn-buy" onclick="">Añadir a la cesta</a>
                                             <div class="col-12 p-0">
                                                 <ul class="list-inline infos-list">
                                                     <li><i class="fa fa-tag"></i>  @Model.Product.Discount% de descuento. </li>
@@ -139,7 +139,7 @@
                                         <div class="card-footer">
                                             <span class="comerc"></span>
                                             <div class="prices">
-                                                <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
+                                                <div class="prices-item2">@product.DropDownListBydays.Name</div>
                                                 <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@Model.Family.FamilyID" class="btn btn-offer">Ver <strong>+</strong></a>
                                             </div>
                                         </div>

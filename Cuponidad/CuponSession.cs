@@ -35,5 +35,13 @@ namespace Cuponidad
             if (oSession.GetString("User") != null) return true;
             else return false;
         }
+        public static void SetDepartmentID(ISession oSession, int departmentID)
+        {
+            oSession.SetInt32("DepartmentID", departmentID);
+        }
+        public static int? GetDepartmentID(ISession oSession)
+        {
+           return oSession.GetInt32("DepartmentID");
+        }
     }
 }

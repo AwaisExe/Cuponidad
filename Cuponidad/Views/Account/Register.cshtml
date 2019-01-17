@@ -8,6 +8,9 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+
 <div class="main-content fixed-content">
     <div class="container">
         <div class="card user-card">
@@ -39,7 +42,7 @@
                                             <input class="form-control" name="Password" type="password" required>
                                         </div>
                                         <div class="form-group log-req">
-                                            <a href="#" class="pass-link text-center">- Olvidaste tu clave? -</a>
+                                            <a href="#" data-toggle="modal" data-target="#myModal" class="pass-link text-center">- Olvidaste tu clave? -</a>
                                             <input type="submit" class="btn log-btn" value="Entrar" />
                                         </div>
                                     </form>
@@ -145,5 +148,32 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <form method="post" asp-action="Change" asp-controller="Account">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Reset Password</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="md-form mb-5 mt-5 col-md-6">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Your email to reset password</label>
+                                <input type="email" id="ChangeEmail" name="ChangeEmail" class="form-control validate" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" >Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+
+

@@ -46,7 +46,6 @@
                                             <select class="combo_cantidad" id="Quantity_@cart.CartID" onchange="calculateAmount(@cart.CartID)" required>
                                                 @if (cart.Quantity == 0)
                                                 {
-                                                    <option>Select</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -54,7 +53,6 @@
                                                 }
                                                 @if (cart.Quantity == 1)
                                                 {
-                                                    <option>Select</option>
                                                     <option selected value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -62,7 +60,6 @@
                                                 }
                                                 else if (cart.Quantity == 2)
                                                 {
-                                                    <option>Select</option>
                                                     <option value="1">1</option>
                                                     <option selected value="2">2</option>
                                                     <option value="3">3</option>
@@ -70,7 +67,6 @@
                                                 }
                                                 else if (cart.Quantity == 3)
                                                 {
-                                                    <option>Select</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option selected value="3">3</option>
@@ -78,7 +74,6 @@
                                                 }
                                                 else if (cart.Quantity == 4)
                                                 {
-                                                    <option>Select</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -123,102 +118,48 @@
                 <h3>Estas ofertas te pueden interesar</h3>
             </div>
             <div class="row d-flex justify-content-center">
-                <div class="card offer-unit">
-                    <figure class="img-offer">
-                        <a href="#">
-                            <img src="~/images/fronton-natacion-07.jpg" class="img-fluid" alt="">
-                        </a>
-                        <span class="offer"><img src="~/images/offer.png"></span>
-                    </figure>
-                    <div class="card-body desc-offer">
-                        <div class="data-offer-allvalue">
-                            <div class="data-offer-linea1"><span class="listing-price-b">S/ 23.90</span></div>
-                            <div class="data-offer-linea2">
-                                <span class="before-price-b">
-                                    <span class="before-price-etiqueta">Precio</span>
-                                    <span class="before-price-precioreal"> S/ 75 </span>
-                                </span>
+                @foreach (var product in Model.Products)
+                {
+                    if (product.Category.FamilyID == Model.FamilyID)
+                    {
+                        <div class="card offer-unit">
+                            <figure class="img-offer">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID">
+                                    <img src="~/@product.ImagePath" class="img-fluid" alt="">
+                                </a>
+                                <span class="offer"><img src="~/images/offer.png"></span>
+                            </figure>
+                            <div class="card-body desc-offer">
+                                <div class="data-offer-allvalue">
+                                    <div class="data-offer-linea1"><span class="listing-price-b">S/ @product.DiscountAmount</span></div>
+                                    @if (product.Discount > 0)
+                                    {
+                                        <div class="data-offer-linea2">
+                                            <span class="before-price-b">
+                                                <span class="before-price-etiqueta">Precio</span>
+                                                <span class="before-price-precioreal"> S/ @product.Prize </span>
+                                            </span>
+                                        </div>
+                                        <div class="data-offer-linea3"><span class="dscto-b">-@product.Discount% DSCTO</span></div>
+                                    }
+                                </div>
+                                <h2 class="title-offer">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID">
+                                        @product.Company.Direction : @product.Description
+                                    </a>
+                                </h2>
                             </div>
-                            <div class="data-offer-linea3"><span class="dscto-b">-66% DSCTO</span></div>
-                        </div>
-                        <h2 class="title-offer">
-                            <a href="#">
-                                Cineplanet: Descuento en 2 entradas 2D + combo recargable. Válido para Lima y Provincias
-                            </a>
-                        </h2>
-                    </div>
-                    <div class="card-footer">
-                        <span class="comerc">Cineplanet</span>
-                        <div class="prices">
-                            <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
-                            <a href="#" class="btn btn-offer">Ver <strong>+</strong></a>
-                        </div>
-                    </div>
-                </div><!-- CARD-ENDS-HERE -->
-                <div class="card offer-unit">
-                    <figure class="img-offer">
-                        <a href="#">
-                            <img src="~/images/fronton-natacion-07.jpg" class="img-fluid" alt="">
-                        </a>
-                        <span class="offer"><img src="~/images/offer.png"></span>
-                    </figure>
-                    <div class="card-body desc-offer">
-                        <div class="data-offer-allvalue">
-                            <div class="data-offer-linea1"><span class="listing-price-b">S/ 23.90</span></div>
-                            <div class="data-offer-linea2">
-                                <span class="before-price-b">
-                                    <span class="before-price-etiqueta">Precio</span>
-                                    <span class="before-price-precioreal"> S/ 75 </span>
-                                </span>
+                            <div class="card-footer">
+                                <span class="comerc">Cineplanet</span>
+                                <div class="prices">
+                                    <div class="prices-item2">@product.DropDownListBydays.Name</div>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-productID="@product.ProductID" asp-route-familyID="@product.Category.FamilyID" class="btn btn-offer">Ver <strong>+</strong></a>
+                                </div>
                             </div>
-                            <div class="data-offer-linea3"><span class="dscto-b">-66% DSCTO</span></div>
-                        </div>
-                        <h2 class="title-offer">
-                            <a href="#">
-                                Cineplanet: Descuento en 2 entradas 2D + combo recargable. Válido para Lima y Provincias
-                            </a>
-                        </h2>
-                    </div>
-                    <div class="card-footer">
-                        <span class="comerc">Cineplanet</span>
-                        <div class="prices">
-                            <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
-                            <a href="#" class="btn btn-offer">Ver <strong>+</strong></a>
-                        </div>
-                    </div>
-                </div><!-- CARD-ENDS-HERE -->
-                <div class="card offer-unit">
-                    <figure class="img-offer">
-                        <a href="#">
-                            <img src="~/images/fronton-natacion-07.jpg" class="img-fluid" alt="">
-                        </a>
-                        <span class="offer"><img src="~/images/offer.png"></span>
-                    </figure>
-                    <div class="card-body desc-offer">
-                        <div class="data-offer-allvalue">
-                            <div class="data-offer-linea1"><span class="listing-price-b">S/ 23.90</span></div>
-                            <div class="data-offer-linea2">
-                                <span class="before-price-b">
-                                    <span class="before-price-etiqueta">Precio</span>
-                                    <span class="before-price-precioreal"> S/ 75 </span>
-                                </span>
-                            </div>
-                            <div class="data-offer-linea3"><span class="dscto-b">-66% DSCTO</span></div>
-                        </div>
-                        <h2 class="title-offer">
-                            <a href="#">
-                                Cineplanet: Descuento en 2 entradas 2D + combo recargable. Válido para Lima y Provincias
-                            </a>
-                        </h2>
-                    </div>
-                    <div class="card-footer">
-                        <span class="comerc">Cineplanet</span>
-                        <div class="prices">
-                            <div class="prices-item2">de Lun. a Dom. (Inc. Feriados)</div>
-                            <a href="#" class="btn btn-offer">Ver <strong>+</strong></a>
-                        </div>
-                    </div>
-                </div><!-- CARD-ENDS-HERE -->
+                        </div><!-- CARD-ENDS-HERE -->
+                    }
+                }
+
             </div>
         </div>
     </div>
@@ -230,27 +171,32 @@
 <script src="https://checkout.culqi.com/js/v3"></script>
 
 @section Scripts{
+
     <script>
+
         $(document).ready(function () {
+
+            $('#culqi_checkout_frame').on('close', function (e) {
+                alert("sdsd");
+            });
 
             $('#buyButton').on('click', function (e) {
                 var totalAmount = $("#totalAmount").text()
                 if (totalAmount == 0) {
                     alert("please Select quantity");
-                    return  
+                    return
                 }
                 $('#loading-Content').addClass('loader-container');
-                $('#loading').addClass('loader');
-
                 Culqi.publicKey = 'pk_test_FkUpVmAZycXE7aE7';
                 totalAmount = totalAmount * 100;
                 Culqi.settings({
                     title: 'Culqi Store',
-                    currency: 'USD',
+                    currency: 'PEN',
                     description: 'Polo Culqi lover',
                     amount: totalAmount,
                 });
                 Culqi.open();
+                $('#loading-Content').removeClass('loader-container');
                 e.preventDefault();
             });
         })
@@ -265,7 +211,7 @@
                 quantity: quantity,
                 subTotal: subTotal
             };
-            var vUrl = "/Cupnoid/Product/UpdateQuantityAndSubTotal";
+            var vUrl = "/Product/UpdateQuantityAndSubTotal";
             AjaxGet(vUrl, data, CartSuccess, null, false)
         }
 
@@ -291,4 +237,5 @@
             location.reload();
         }
     </script>
+
 }

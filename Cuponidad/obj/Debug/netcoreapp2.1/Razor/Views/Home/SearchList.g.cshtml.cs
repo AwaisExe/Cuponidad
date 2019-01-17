@@ -76,12 +76,12 @@ using Cuponidad.Models;
             WriteLiteral("                            <div class=\"card offer-unit\">\r\n                                <figure class=\"img-offer\">\r\n                                    ");
             EndContext();
             BeginContext(628, 278, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9c8feb62ef4f43ccb9c78fb97b22849a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ac11e74f82c24b49b314bbf7981b1fad", async() => {
                 BeginContext(765, 42, true);
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(807, 57, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "de28cccb43ed4aecb6e0dae8d998576a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "45e116a05216443d891c0d065c4f5e7d", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -149,7 +149,7 @@ AddHtmlAttributeValue("", 819, product.ImagePath, 819, 18, false);
             WriteLiteral("\r\n                                    <span class=\"offer\">");
             EndContext();
             BeginContext(964, 30, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "f1d6235dfbe54b6daa1abed3d944bdbc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "422284c1469145caa93f1fece0a731c4", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -221,7 +221,7 @@ AddHtmlAttributeValue("", 819, product.ImagePath, 819, 18, false);
             WriteLiteral("                                    </div>\r\n                                    <h2 class=\"title-offer\">\r\n                                        ");
             EndContext();
             BeginContext(2246, 276, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ea53309bb37b4a6cab0791d2289eacf7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fe6562838a9b44e6ab82ab770f091551", async() => {
                 BeginContext(2383, 46, true);
                 WriteLiteral("\r\n                                            ");
                 EndContext();
@@ -294,7 +294,7 @@ AddHtmlAttributeValue("", 819, product.ImagePath, 819, 18, false);
                                         ");
             EndContext();
             BeginContext(2934, 185, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "80b1f1100be0482ca0e7d018a3063c41", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6aaf85a28eda43d883e9cd77895712a2", async() => {
                 BeginContext(3093, 22, true);
                 WriteLiteral("Ver <strong>+</strong>");
                 EndContext();

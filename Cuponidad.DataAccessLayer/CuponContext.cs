@@ -11,7 +11,7 @@ namespace Cuponidad.DataAccessLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-4BRLBUI\SQL2014;Initial Catalog=CuponDB;Integrated Security=True");
-           // optionsBuilder.UseSqlServer(@"Server=localhost; Database=CuponDB; uid=sa; pwd=fincon@123; Integrated Security=True");
+            //optionsBuilder.UseSqlServer(@"Server=localhost; Database=CuponDB; uid=sa; pwd=fincon@123");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

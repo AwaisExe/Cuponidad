@@ -25,7 +25,7 @@
         </div>
     }
         <form method="post" enctype="multipart/form-data">
-            <input type="file" name="Image" required>
+            <input type="file" name="Images" required multiple>
             <div class="form-group">
                 <label>Product Name</label>
                 <input asp-for="Product.Name" type="text" class="form-control" />
@@ -101,7 +101,7 @@
         var data = {
             FamilyID: $("#FamilyID").val()
         };
-        var vUrl = "/Cupnoid/Admin/CategoryList";
+        var vUrl = "/Admin/CategoryList";
         AjaxGet(vUrl, data, LoadCategories, null, false)
     });
 

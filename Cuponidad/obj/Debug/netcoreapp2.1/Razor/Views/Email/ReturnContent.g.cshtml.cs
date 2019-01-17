@@ -64,7 +64,7 @@ using Cuponidad.Models;
             WriteLiteral("\r\n<!DOCTYPE html>\r\n<html>\r\n");
             EndContext();
             BeginContext(56, 202, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98ed14dcc1a04620acd277182a2a97a4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9474f5bd2385486d89fd8f6e9267047b", async() => {
                 BeginContext(62, 189, true);
                 WriteLiteral("\r\n    <meta charset=\"utf-8\" />\r\n    <title></title>\r\n\r\n    <style>\r\n        * {\r\n            padding: 0;\r\n            margin: 0;\r\n            font-family: Ubuntu;\r\n        }\r\n    </style>\r\n");
                 EndContext();
@@ -84,7 +84,7 @@ using Cuponidad.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(260, 1096, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e4cb3acb6de540f885ded29844e5f854", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a06fe69f942b4be88bcf51b84adcb682", async() => {
                 BeginContext(294, 653, true);
                 WriteLiteral(@"
     <table style=""text-align:center;margin:0 auto; width:100%;max-width:600px;"">

@@ -9,10 +9,11 @@ namespace Cuponidad.Models
 {
     public class ProductViewModel
     {
-        public ProductViewModel()
+        public ProductViewModel(int departmentID = 0)
         {
+            if (departmentID > 0) ProductListByDepartment(departmentID);
+            else ProductList();
             RightBannerList();
-            ProductList();
             CategoryLevelList();
             CategoryList();
             FamilyList();
@@ -58,6 +59,20 @@ namespace Cuponidad.Models
                 if (item.Product.Description.Length > 60)
                 {
                     item.Product.Description = item.Product.Description.Substring(0, 60);
+                }
+            }
+        }
+
+        private void ProductListByDepartment(int departmentID )
+        {
+            Products = ProductRepository.ListByDepartment(departmentID);
+            foreach (var item in Products)
+            {
+                item.DiscountAmount = string.Format("{0:0.##}", (item.Prize - ((item.Prize * item.Discount) / 100)));
+
+                if (item.Description.Length > 77)
+                {
+                    item.Description = item.Description.Substring(0, 77);
                 }
             }
         }

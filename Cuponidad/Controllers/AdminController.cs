@@ -25,11 +25,15 @@ namespace Cuponidad.Controllers
         {
             return View();
         }
-        public IActionResult AddProduct()
+        public IActionResult AddProduct(string message = " ")
         {
             try
             {
                 addProductViewModel = new AddProductViewModel();
+                if (message != " ")
+                {
+                    ViewData["SuccessMessage"] = message;
+                }
             }
             catch (Exception ex)
             {
@@ -38,13 +42,15 @@ namespace Cuponidad.Controllers
             return View(addProductViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product, IFormFile Image)
+        public async Task<IActionResult> AddProduct(Product product, List<IFormFile> Images)
         {
+            string message = "";
             try
             {
-                product.ImagePath = await UploadImage(Image);
-                ProductRepository.Insert(product);
-                ViewData["SuccessMessage"] = "Your Product has been Uploaded successfully.";
+                await UploadImage(Images);
+                //product.ImagePath = await UploadImage(Image);
+                //ProductRepository.Insert(product);
+                message = "Your Product has been Uploaded successfully.";
             }
             catch (Exception ex)
             {
@@ -54,7 +60,7 @@ namespace Cuponidad.Controllers
             {
                 addProductViewModel = new AddProductViewModel();
             }
-            return View(addProductViewModel);
+            return RedirectToAction("AddProduct", new { message });
         }
         public IActionResult CategoryList(int FamilyID)
         {
@@ -71,22 +77,30 @@ namespace Cuponidad.Controllers
             return new JsonResult(addProductViewModel.Categories);
         }
 
-        private async Task<string>UploadImage(IFormFile Image)
+        private async Task<string> UploadImage(List<IFormFile> Images)
         {
             string ImagePath;
-            ImagePath = _hostingEnvironment.WebRootPath + "\\images\\Upload";
-            ImagePath = ImagePath + "\\" + Image.FileName;
-            using (var stream = new FileStream(ImagePath, FileMode.Create))
+            foreach (var img in Images)
             {
-                await Image.CopyToAsync(stream);
-            }
-            var compressedImage = new FileInfo(ImagePath);
-            var optimizer = new ImageOptimizer();
-            optimizer.Compress(compressedImage);
-            compressedImage.Refresh();
+                if (img.Length > 0)
+                {
+                    ImagePath = _hostingEnvironment.WebRootPath + "\\images\\Upload";
+                    ImagePath = ImagePath + "\\" + img.FileName;
+                    using (var stream = new FileStream(ImagePath, FileMode.Create))
+                    {
+                        await img.CopyToAsync(stream);
+                    }
+                    var compressedImage = new FileInfo(ImagePath);
+                    var optimizer = new ImageOptimizer();
+                    optimizer.Compress(compressedImage);
+                    compressedImage.Refresh();
 
-            ImagePath = "images\\Upload\\" + Image.FileName;
-            return ImagePath;
+                    ImagePath = "images\\Upload\\" + img.FileName;
+                    ImagePath = "";
+                }
+            }
+
+            return "";
         }
     }
 }

@@ -7,10 +7,13 @@
     bool IsLogin = false;
     string UserName = "";
     int TotalCart = 0;
+    int? departID = 0;
     List<Family> families = new List<Family>();
     List<Department> departments = new List<Department>();
     families = FamilyRepository.List();
     departments = DropDownListRepository.DepartmenList();
+
+    departID =  CuponSession.GetDepartmentID(oISession);
 }
 
 @if (CuponSession.IsUserLogin(oISession))
@@ -50,7 +53,7 @@
             <div style="background-color:aqua">
                 <form id="departmentForm" method="post" asp-action="SearchList" asp-controller="Home">
                     <select style="margin-left:140px" id="DepartmentID" name="DepartmentID" asp-items="@(new SelectList(departments ,"DepartmentID","Name"))" required>
-                        <option class="form-control">Select Department</option>
+                        @*<option class="form-control">Select Department</option>*@
                     </select>
                 </form>
             </div>
@@ -235,6 +238,7 @@
             $('#DepartmentID').on('change', function () {
                 $('#departmentForm').submit();
             });
+            $("#DepartmentID").val(@departID);
         })
     </script>
 

@@ -29,6 +29,7 @@ namespace Cuponidad.Controllers
             try
             {
                 ProductDetailViewModel = new ProductDetailViewModel(0, familyID, categoryID);
+                ProductDetailViewModel.Products = ProductDetailViewModel.Products.Where(x => x.DepartmentID == CuponSession.GetDepartmentID(HttpContext.Session)).ToList();
             }
             catch (Exception ex)
             {
@@ -42,6 +43,7 @@ namespace Cuponidad.Controllers
             try
             {
                 ProductDetailViewModel = new ProductDetailViewModel(0, familyID, categoryID, DropDownID);
+                ProductDetailViewModel.Products = ProductDetailViewModel.Products.Where(x => x.DepartmentID == CuponSession.GetDepartmentID(HttpContext.Session)).ToList();
             }
             catch (Exception ex)
             {
@@ -54,6 +56,7 @@ namespace Cuponidad.Controllers
             try
             {
                 ProductDetailViewModel = new ProductDetailViewModel(productID, familyID);
+                ProductDetailViewModel.Products = ProductDetailViewModel.Products.Where(x => x.DepartmentID == CuponSession.GetDepartmentID(HttpContext.Session)).ToList();
             }
             catch (Exception ex)
             {
@@ -67,6 +70,7 @@ namespace Cuponidad.Controllers
             try
             {
                 ProductDetailViewModel = new ProductDetailViewModel(productID, familyID, 0, DropDownID);
+                ProductDetailViewModel.Products = ProductDetailViewModel.Products.Where(x => x.DepartmentID == CuponSession.GetDepartmentID(HttpContext.Session)).ToList();
             }
             catch (Exception ex)
             {
@@ -74,12 +78,14 @@ namespace Cuponidad.Controllers
             }
             return View(ProductDetailViewModel);
         }
-        public IActionResult Cart()
+        public IActionResult Cart(int FamilyID)
         {
             try
             {
                 if (!CuponSession.IsUserLogin(HttpContext.Session)) return RedirectToAction("Register", "Account");
                 CartVewModel = new CartVewModel(CuponSession.GetUser(HttpContext.Session).UserID);
+                CartVewModel.FamilyID = FamilyID;
+                CartVewModel.Products = CartVewModel.Products.Where(x => x.DepartmentID == CuponSession.GetDepartmentID(HttpContext.Session)).ToList();
             }
             catch (Exception ex)
             {
@@ -87,12 +93,17 @@ namespace Cuponidad.Controllers
             }
             return View(CartVewModel);
         }
-        public IActionResult AddToCart(int ProductID)
+        public IActionResult AddToCart(int ProductID, int FamilyID)
         {
+            Product product = new Product();
+            Cart cart = new Cart();
             try
             {
                 if (!CuponSession.IsUserLogin(HttpContext.Session)) return RedirectToAction("Register", "Account");
-                Cart cart = new Cart();
+                product = ProductRepository.Read(ProductID);
+                product.DiscountAmount = string.Format("{0:0.##}", (product.Prize - ((product.Prize * product.Discount) / 100)));
+                cart.Quantity = 1;
+                cart.Total = Convert.ToDecimal(product.DiscountAmount);
                 cart.ProductID = ProductID;
                 cart.UserID = CuponSession.GetUser(HttpContext.Session).UserID;
                 CartRepository.Insert(cart);
@@ -101,7 +112,7 @@ namespace Cuponidad.Controllers
             {
                 ViewData["ErrorMessage"] = ex.Message;
             }
-            return RedirectToAction("Cart");
+            return RedirectToAction("Cart", new { FamilyID });
         }
         public IActionResult Delete(int cartID)
         {
@@ -145,12 +156,12 @@ namespace Cuponidad.Controllers
             int amountinPen;
             decimal amountInDollor;
             amountInDollor = UserRepository.ReadTotalAmount(CuponSession.GetUser(HttpContext.Session).UserID);
-            amountinPen  = Convert.ToInt32(amountInDollor * 100);
+            amountinPen = Convert.ToInt32(amountInDollor * 100);
             Dictionary<string, object> map = new Dictionary<string, object>
             {
                 {"amount", amountinPen},
                 {"capture", false},
-                {"currency_code", "USD"},
+                {"currency_code", "PEN"},
                 {"description", "Venta de prueba"},
                 {"installments", 0},
                 {"email", CuponSession.GetUser(HttpContext.Session).Email},
@@ -164,11 +175,12 @@ namespace Cuponidad.Controllers
 
         public void SendEmail(string Email, decimal amount)
         {
-            var vContent = EmailController.ReturnHtmlContent(HttpContext, "/Email/ReturnContent?amount=" + amount);
-            var vFrom = "Cupnidad@cup.com";
-            var vTo = Email;
-            var vSubject = "Email from The Cuponidad";
-            var response = Send.SendEmail(oIconfig, vFrom, vTo, vSubject, "", vContent);
+            //var vContent = EmailController.ReturnHtmlContent(HttpContext, "/Email/ReturnContent?amount=" + amount);
+            ////var vContent = "Your Order is successful and you paid Amount:" + amount;
+            //var vFrom = "Cupnidad@cup.com";
+            //var vTo = Email;
+            //var vSubject = "Email from The Cuponidad";
+            //var response = Send.SendEmail(oIconfig, vFrom, vTo, vSubject, "", vContent);
         }
 
         public ActionResult UpdateQuantityAndSubTotal(int cartID, int quantity, decimal subTotal)
